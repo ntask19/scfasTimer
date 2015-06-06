@@ -1,13 +1,13 @@
 application =
 {
 
-	content =
-	{
-		width = 320,
-		height = 480, 
-		scale = "letterBox",
-		fps = 30,
-		
+    content =
+    {
+        graphicsCompatibility = 1,
+        width = 640,
+        height = (640/display.pixelWidth) * display.pixelHeight,
+        scale = "letterbox",
+        fps = 60,
 		--[[
 		imageSuffix =
 		{
