@@ -3,7 +3,7 @@ application =
 
     content =
     {
-        graphicsCompatibility = 1,
+        -- graphicsCompatibility = 1,
         width = 640,
         height = (640/display.pixelWidth) * display.pixelHeight,
         scale = "letterbox",
@@ -15,7 +15,13 @@ application =
 		},
 		--]]
 	},
-
+    notification = 
+    {
+        google =
+        {
+            projectNumber = "418410993667"
+        },
+    }
 	--[[
 	-- Push notifications
 	notification =

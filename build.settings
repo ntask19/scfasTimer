@@ -5,7 +5,13 @@
 
 settings =
 {
-	
+    plugins =
+    {
+        ["plugin.notifications"] =
+        {
+            publisherId = "com.coronalabs"
+        },
+    },
 	orientation =
 	{
 		-- Supported values for orientation:
@@ -73,9 +79,18 @@ settings =
 	--
 	android =
 	{
+		versionCode = "10002",
+        permissions =
+        {
+            { name = ".permission.C2D_MESSAGE", protectionLevel = "signature" },
+        },
 		usesPermissions =
 		{
 			"android.permission.INTERNET",
-		},
+            "android.permission.GET_ACCOUNTS",
+            "android.permission.RECEIVE_BOOT_COMPLETED",
+            "com.google.android.c2dm.permission.RECEIVE",
+            ".permission.C2D_MESSAGE",
+        },
 	},
 }

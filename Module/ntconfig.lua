@@ -1,3 +1,7 @@
+notifications = require 'plugin.notifications'
+widget = require 'widget'
+json = require 'json'
+
 --ステータスバーの設定
 -- display.setStatusBar( display.DefaultStatusBar )
 --display.setStatusBar( display.HiddenStatusBar )
@@ -30,3 +34,4 @@ contDir = "Controller."
 modDir = "Module."
 
 object = require( modDir .. 'object' )
+require( modDir .. 'util' )
