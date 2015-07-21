@@ -15,8 +15,13 @@
 __isDebug = false
 -- Your code here
 
-require 'Module.ntconfig'
+require 'Module.main_config'
 
-local image = display.newImage( 'Default-568h@2x.png', _W*0.5, _H*0.5 )
+analytics = require( PluginDir .. 'analytics.analytics' )
+notifications = require 'plugin.notifications'
+livePoint = require( ContDir .. 'livePoint' )
+livePoint.readPoint()
+livePoint.UpdatePointFromCache()
 
-timer.performWithDelay( 500, function() require( contDir .. 'index' ) end )
+local charge = require( ContDir .. 'charge' )
+charge:createScene()

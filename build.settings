@@ -11,6 +11,14 @@ settings =
         {
             publisherId = "com.coronalabs"
         },
+        ["CoronaProvider.analytics.flurry"] =
+        {
+            publisherId = "com.coronalabs"
+        },
+        ["plugin.google.play.services"] =
+        {
+            publisherId = "com.coronalabs"
+        },
     },
 	orientation =
 	{
@@ -79,7 +87,6 @@ settings =
 	--
 	android =
 	{
-		versionCode = "10002",
         permissions =
         {
             { name = ".permission.C2D_MESSAGE", protectionLevel = "signature" },
@@ -91,6 +98,19 @@ settings =
             "android.permission.RECEIVE_BOOT_COMPLETED",
             "com.google.android.c2dm.permission.RECEIVE",
             ".permission.C2D_MESSAGE",
+            -- The following permissions are optional.
+            -- If set, Flurry will also record current location via GPS and/or WiFi.
+            -- If not set, Flurry can only record which country the app was used in.
+            "android.permission.ACCESS_FINE_LOCATION",    --fetches location via GPS
+            "android.permission.ACCESS_COARSE_LOCATION",  --fetches location via WiFi or cellular service
+        },
+        usesFeatures =
+        {
+            -- If you set permissions "ACCESS_FINE_LOCATION" and "ACCESS_COARSE_LOCATION" above,
+            -- you should set the app to NOT require location services:
+            { name="android.hardware.location", required=false },
+            { name="android.hardware.location.gps", required=false },
+            { name="android.hardware.location.network", required=false },
         },
 	},
 }
