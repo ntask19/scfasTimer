@@ -2109,12 +2109,17 @@ end
 -- 秒数を◯◯：○○形式に変換
 function changeSeconds( duration )
 	local duration = duration
+	local hour    = math.floor((duration/3600))
 	local minutes = math.floor((duration / 60) % 60)
 	local seconds = math.floor( duration % 60 )
 	if seconds*0.1 < 1 then
 		seconds = '0' .. seconds
 	end
-	local hms = minutes .. ':' .. seconds
+
+	if minutes*0.1 < 1 then
+		minutes = '0' .. minutes
+	end
+	local hms = hour .. ':' .. minutes .. ':' .. seconds
 	return hms
 end
 

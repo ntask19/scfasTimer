@@ -1,5 +1,5 @@
 _print = print
-_isDebug = true
+_isDebug = false
 
 local function tsstring(o)
     return '"' .. tostring(o) .. '"'

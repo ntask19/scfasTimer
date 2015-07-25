@@ -94,15 +94,13 @@ settings =
 		usesPermissions =
 		{
 			"android.permission.INTERNET",
+			"android.permission.ACCESS_NETWORK_STATE",
             "android.permission.GET_ACCOUNTS",
             "android.permission.RECEIVE_BOOT_COMPLETED",
             "com.google.android.c2dm.permission.RECEIVE",
             ".permission.C2D_MESSAGE",
-            -- The following permissions are optional.
-            -- If set, Flurry will also record current location via GPS and/or WiFi.
-            -- If not set, Flurry can only record which country the app was used in.
-            "android.permission.ACCESS_FINE_LOCATION",    --fetches location via GPS
-            "android.permission.ACCESS_COARSE_LOCATION",  --fetches location via WiFi or cellular service
+            "android.permission.ACCESS_FINE_LOCATION",
+            "android.permission.ACCESS_COARSE_LOCATION",
         },
         usesFeatures =
         {
