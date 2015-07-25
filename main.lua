@@ -33,11 +33,11 @@ local function adListener( event )
 	end
 end
 admob.init( "admob", "pub-2136596755146345", adListener )
-admob.show( "banner", { x = 0, y = _H-100, appId = 'ca-app-pub-2136596755146345/7343017112' } )
+admob.show( "banner", { x = 0, y = _H-100, appId = 'ca-app-pub-2136596755146345/9874021114' } )
 
 local nonce = math.random(100)
 if interstitial == nil and nonce%4 == 0 then
-	interstitial = admob.show( "interstitial", { x = _W*0.5, y = _H*0.5, appId = 'ca-app-pub-2136596755146345/4305165515' } )
+	interstitial = admob.show( "interstitial", { x = _W*0.5, y = _H*0.5, appId = 'ca-app-pub-2136596755146345/2350754316' } )
 end
 
 local function onComplete( event )
@@ -49,7 +49,7 @@ local function onComplete( event )
             -- Open URL if "Learn More" (second button) was clicked
 			local option = 
 			{
-            	androidAppPackageName = 'com.task.dev.lovelive.scfas',
+            	androidAppPackageName = 'com.ntask19.scfas',
             	supportedAndroidStores = { 'google' }
         	}
         	native.showPopup( 'appStore', option )
