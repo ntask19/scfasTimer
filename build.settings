@@ -87,7 +87,7 @@ settings =
 	--
 	android =
 	{
-		versionCode = "4",
+		versionCode = "9",
         permissions =
         {
             { name = ".permission.C2D_MESSAGE", protectionLevel = "signature" },

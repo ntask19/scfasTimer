@@ -53,6 +53,7 @@ function this.set( time )
 	{
 	    alert = alertMsg[i],
 	    badge = 2,
+	    sound = AudioDir .. 'push.mp3',
 	    custom = { foo = "bar" }
 	}
 	local utcTime = os.date( "!*t", os.time() + time )

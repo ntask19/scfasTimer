@@ -24,8 +24,8 @@ this.diffTime = 0
 this.date = nil
 this.began_time = nil
 
-this.current_point = 0
-this.target_point = 50
+this.current_point = playerInfoData['current_point']
+this.target_point = playerInfoData['target_point']
 
 function this.stopPoint()
 	print('stop event')
@@ -61,6 +61,14 @@ function this.readPoint()
 		this.began_time = data['began_time']
 		this.endedTime = data['ended_time']
 
+		local notify_time = os.date( '%m月%d日 %H:%M:%S', this.endedTime )
+		local event = 
+		{
+			name = 'livePoint-readPoint-finish',
+			time = notify_time,
+		}
+		this:dispatchEvent( event )
+
 		return 0
 	else
 		return -1
@@ -88,6 +96,12 @@ function this.getDiffPoint( beganTime )
 	local now = os.time( os.date( '*t' ) )
 	local diffPoint = math.floor( ( now - beganTime ) / recoverTime )
 	return diffPoint
+end
+
+function this.setDiffTime( endedTime )
+	assert( endedTime )
+	local now = os.time( os.date( '*t' ) )
+	this.diffTime = tonumber( endedTime ) - now
 end
 
 function this.getDiffTime()

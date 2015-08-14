@@ -18,9 +18,13 @@ display.setStatusBar( display.TranslucentStatusBar )
 _W  = display.contentWidth
 _H  = display.actualContentHeight
 
+__appVer = 1.04
+
 if system.getInfo("platformName") == "Android" then
+	__motoyama = 'MTLmr3m'
 	_SH = 45
 else
+	__motoyama = 'MotoyaLmaru W3 Mono'
 	_SH = (display.actualContentHeight - display.contentHeight)*0.5
 end
 
@@ -38,7 +42,7 @@ ViewDir    = "View."
 ModelDir   = "Model."
 ContDir    = "Controller."
 ModDir     = "Module."
-PluginDir  = "Plugin."
+AudioDir   = "Audio/"
 
 -- ファイル呼び出し
 require(ModDir .. 'print.print')

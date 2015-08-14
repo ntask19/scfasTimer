@@ -17,7 +17,6 @@ local charge_model = require( ModelDir .. 'charge_model' )
 
 -- require View
 local popup_view = require( ViewDir .. 'popup_view' )
-local number_view = require( ViewDir .. 'number_view' )
 
 local this = object.new()
 this.group = nil
@@ -47,11 +46,17 @@ function this.create()
 
 	this.group = display.newGroup()
 
+	local color_table = { 248, 181, 0 }
+	
+	if __isPremium then
+		color_table = { 242, 159, 197 }
+	end
 	this.bg = display.newRect( 0, 0, _W, _H )
-	-- this.bg:setFillColor( 248, 181, 0 )
-	this.bg:setFillColor( 255, 0, 153 )
+	this.bg:setFillColor( color_table[1], color_table[2], color_table[3] )
+	-- this.bg:setFillColor( 255, 0, 153 )
 
-	this.maxLivePointTitle = display.newImage( ImgDir .. 'btn/target.png' )
+	-- this.maxLivePointTitle = display.newImage( ImgDir .. 'btn/target.png' )
+	this.maxLivePointTitle = display.newText( '目標のLP', 0, 0, __motoyama, 60 )
 	this.maxLivePointTitle.x, this.maxLivePointTitle.y =  _W*0.5, 150
 	
 	this.maxLivePointBtn = display.newRect( 0, 0, 300, 100 )
@@ -59,46 +64,69 @@ function this.create()
 	this.maxLivePointBtn.isVisible = false
 	this.maxLivePointBtn.isHitTestable = true
 
-	-- this.maxLivePointText = number_view.displayPoint( 0 )
-	-- this.maxLivePointText:scale( 0.8, 0.8 )
-	-- this.maxLivePointText:setReferencePoint( display.CenterReferencePoint )
-	-- this.maxLivePointText.x, this.maxLivePointText.y =  this.maxLivePointBtn.x, this.maxLivePointBtn.y
-
-	this.maxLivePointText = native.newTextField( 0, 0, 100, 80 )
+	this.maxLivePointText = native.newTextField( 0, 0, 120, 80 )
 	this.maxLivePointText.inputType = "number"
 	this.maxLivePointText.x, this.maxLivePointText.y =  this.maxLivePointBtn.x, this.maxLivePointBtn.y
-	this.maxLivePointText.text = livePoint.target_point or 50
+	this.maxLivePointText.text = livePoint.target_point or 50 
 	this.maxLivePointText.type = 'target'
-	-- this.maxLivePointText.hasBackground = false
+	this.maxLivePointText.align = 'center'
+	this.maxLivePointText.font = native.newFont( __motoyama, 60 )
+	this.maxLivePointText:setTextColor( 50 )
 	
-	this.currentLivePointTitle = display.newImage( ImgDir .. 'btn/now.png' )
+	-- this.currentLivePointTitle = display.newImage( ImgDir .. 'btn/now.png' )
+	this.currentLivePointTitle = display.newText( '現在のLP', 0, 0, __motoyama, 60 )
 	this.currentLivePointTitle.x, this.currentLivePointTitle.y = _W*0.5, 330
 	
 	this.currentLivePointBtn = display.newRect( 0, 0, 300, 100 )
 	this.currentLivePointBtn.x, this.currentLivePointBtn.y = _W*0.5, 410
 	this.currentLivePointBtn.isVisible = false
 	this.currentLivePointBtn.isHitTestable = true
-
-	-- this.currentLivePointText = number_view.displayPoint( 0 )
-	-- this.currentLivePointText:scale( 0.8, 0.8 )
-	-- this.currentLivePointText:setReferencePoint( display.CenterReferencePoint )
-	-- this.currentLivePointText.x, this.currentLivePointText.y = this.currentLivePointBtn.x, this.currentLivePointBtn.y
 	
-	this.currentLivePointText = native.newTextField( 0, 0, 100, 80 )
+	this.currentLivePointText = native.newTextField( 0, 0, 120, 80 )
 	this.currentLivePointText.inputType = "number"
 	this.currentLivePointText.x, this.currentLivePointText.y = this.currentLivePointBtn.x, this.currentLivePointBtn.y
 	this.currentLivePointText.text = livePoint.current_point or 0
 	this.currentLivePointText.type = 'current'
-	-- this.currentLivePointText.hasBackground = false
+	this.currentLivePointText.align = 'center'
+	this.currentLivePointText.font = native.newFont( __motoyama, 60 )
+	this.currentLivePointText:setTextColor( 50 )
 
-	this.timerText = display.newText( '0:00', 0, 0, nil, 60 )
+	this.timerText = display.newText( '0:00', 0, 0, __motoyama, 60 )
 	this.timerText.x, this.timerText.y = _W*0.5, 510
 
-	this.startBtn = display.newImage( ImgDir .. 'btn/start.png' )
+	-- this.startBtn = display.newImage( ImgDir .. 'btn/start.png' )
+	this.startBtn = widget.newButton
+	{
+	    onEvent = this.handleButtonEvent,
+	    emboss = false,
+	    shape = "roundedRect",
+	    width = 200,
+	    height = 100,
+	    cornerRadius = 10,
+	    fillColor = { default={ 255 }, over={ 200 } },
+	    label = 'START',
+		labelColor = { default={ color_table[1], color_table[2], color_table[3] }, over={ color_table[1]+10, color_table[2]+10, color_table[3]+10 } },
+	    fontSize = 50,
+	    font = __motoyama,
+	}
 	this.startBtn.x, this.startBtn.y = _W*0.5-150, 650
 	this.startBtn.type = 'start'
 	
-	this.stopBtn = display.newImage( ImgDir .. 'btn/stop.png' )
+	-- this.stopBtn = display.newImage( ImgDir .. 'btn/stop.png' )
+	this.stopBtn = widget.newButton
+	{
+	    onEvent = this.handleButtonEvent,
+	    emboss = false,
+	    shape = "roundedRect",
+	    width = 200,
+	    height = 100,
+	    cornerRadius = 10,
+	    fillColor = { default={ 255 }, over={ 200 } },
+	    label = 'STOP',
+		labelColor = { default={ color_table[1], color_table[2], color_table[3] }, over={ color_table[1]+10, color_table[2]+10, color_table[3]+10 } },
+	    fontSize = 50,
+	    font = __motoyama,
+	}
 	this.stopBtn.x, this.stopBtn.y = _W*0.5+150, 650
 	this.stopBtn.type = 'stop'
 
@@ -108,7 +136,7 @@ function this.create()
 	    x = 0,
 	    y = 0,
 	    width = _W-100,
-	    font = nil,
+	    font = __motoyama,
 	    fontSize = 50,
 	    align = 'center' 
 	}
@@ -118,8 +146,6 @@ function this.create()
 
 	this.bg:addEventListener( 'tap', returnTrue )
 	this.bg:addEventListener( 'touch', returnTrue )
-	this.startBtn:addEventListener( 'touch', this.btnTouchListener )
-	this.stopBtn:addEventListener( 'touch', this.btnTouchListener )
 	this.maxLivePointText:addEventListener( 'userInput', this.inputListener )
 	this.currentLivePointText:addEventListener( 'userInput', this.inputListener )
 
@@ -134,8 +160,6 @@ function this.create()
 	this.group:insert( this.startBtn )
 	this.group:insert( this.stopBtn )
 	this.group:insert( this.dateText )
-	
-
 
 end
 
@@ -160,7 +184,14 @@ function this.inputListener( e )
 	this:dispatchEvent( event )
 end
 
+function this.handleButtonEvent( e )
+    if 'ended' == e.phase then
+    	this.btnTapListener( e )
+    end
+end
+
 function this.btnTapListener( e )
+	sound.play( sound.push )
 	local event = 
 	{
 		name = 'charge_view-btn-tap',
